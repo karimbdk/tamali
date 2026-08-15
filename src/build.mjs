@@ -1461,6 +1461,8 @@ async function build() {
   );
 
   await write('sitemap.xml', sitemap());
+  // Empêche GitHub Pages de faire passer la sortie par Jekyll.
+  await write('.nojekyll', '');
   await write('robots.txt', 'User-agent: *\nDisallow: /\n# TODO : autoriser l’indexation à la mise en ligne définitive.\n');
 
   // Assets
