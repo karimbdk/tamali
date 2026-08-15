@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /
+# TODO : autoriser l’indexation à la mise en ligne définitive.
