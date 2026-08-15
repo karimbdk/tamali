@@ -16,7 +16,23 @@ node src/build.mjs
 node src/serve.mjs
 ```
 
-Prévisualisation : <http://localhost:8170/> (redirige vers `/fr/`, `/ar/` pour l’arabe).
+Prévisualisation locale : <http://localhost:8170/> (redirige vers `/fr/`, `/ar/` pour l’arabe).
+
+## Publication de l’aperçu
+
+```bash
+npm run deploy
+```
+
+Reconstruit le site avec l’URL publique (balises `canonical` et `og:image`) puis pousse `dist/` sur la
+branche `gh-pages`. En ligne sur <https://karimbdk.github.io/tamali/>.
+
+L’aperçu sort en `noindex` et `robots.txt` fermé : il est destiné à être montré à la Dr, pas indexé.
+`dist/` n’est pas versionné sur `main` — seules les sources le sont.
+
+> Un déploiement par GitHub Actions serait plus confortable (rebuild à chaque push), mais le jeton `gh`
+> de la machine n’a pas la portée `workflow`. Pour l’activer : `gh auth refresh -s workflow` dans un
+> terminal interactif, puis rétablir `.github/workflows/deploy.yml`.
 
 ## Arborescence
 
@@ -95,7 +111,7 @@ Ces points sont volontairement marqués `[À CONFIRMER]` dans les pages, jamais 
 - [ ] Photographier les vraies façades et salles des deux cabinets
 - [ ] 6 à 12 cas avant/après réels avec consentement écrit archivé et EXIF supprimé
 - [ ] Mentions légales : hébergeur, forme juridique, numéro d’inscription à l’ordre
-- [ ] Domaine définitif : remplacer `https://example.com` dans `build.mjs` (sitemap + JSON-LD)
+- [ ] Domaine définitif : `SITE_URL=https://ledomaine.dz node src/build.mjs` (canonical, og:image, sitemap, JSON-LD)
 - [ ] **Retirer `noindex`** (balise robots dans `build.mjs`) et ouvrir `robots.txt`
 - [ ] Convertir les images en WebP et vérifier Lighthouse mobile ≥ 90
 
