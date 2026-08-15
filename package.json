@@ -1,0 +1,12 @@
+{
+  "name": "tamali-rayane-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Site Dr Tamali Rayane — Clinic Crystal Smile & Aura Cabinet d'Esthétique (Koléa)",
+  "scripts": {
+    "build": "node src/build.mjs",
+    "preview": "node src/build.mjs && node src/serve.mjs",
+    "serve": "node src/serve.mjs"
+  }
+}
