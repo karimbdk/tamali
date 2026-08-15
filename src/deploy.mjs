@@ -20,11 +20,13 @@ const REPO = process.env.DEPLOY_REPO || 'karimbdk/tamali';
 const BRANCH = 'gh-pages';
 const SITE_URL = process.env.SITE_URL || `https://${REPO.split('/')[0]}.github.io/${REPO.split('/')[1]}`;
 
-const run = (cmd, args, cwd) =>
-  execFileSync(cmd, args, { cwd, stdio: 'inherit', shell: false });
+const run = (cmd, args, cwd, env) =>
+  execFileSync(cmd, args, { cwd, stdio: 'inherit', shell: false, env: env || process.env });
 
 console.log(`→ génération avec SITE_URL=${SITE_URL}`);
-run('node', [join(ROOT, 'src/build.mjs')], ROOT);
+// SITE_URL doit être transmis au sous-processus : sans cela le build
+// retombe sur example.com et publie des canonical/og:image inutilisables.
+run('node', [join(ROOT, 'src/build.mjs')], ROOT, { ...process.env, SITE_URL });
 
 // Dépôt jetable dans dist/ : recréé à chaque publication.
 if (existsSync(join(DIST, '.git'))) await rm(join(DIST, '.git'), { recursive: true, force: true });
